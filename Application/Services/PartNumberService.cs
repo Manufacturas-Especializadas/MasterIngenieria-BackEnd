@@ -25,7 +25,7 @@ namespace Application.Services
                     .Select(g => new ProcessStatsDto
                     {
                         Name = g.Key ?? "Sin proceso",
-                        Partes = g.Count(),
+                        NPartes = g.Count(),
                         Efficiency = g.Average(x => (double?)x.PzsHr) ?? 0.0
                     })
                     .ToListAsync();
