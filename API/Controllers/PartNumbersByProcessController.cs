@@ -15,10 +15,11 @@ namespace API.Controllers
             _service = service;
         }
 
-        [HttpGet("Dashboard-stats")]
+        [HttpGet]
+        [Route("Dashboard-parentPartNumbers")]
         public async Task<IActionResult> GetStats()
         {
-            var stats = await _service.GetPartNumbersStatsAsync();
+            var stats = await _service.GetParentPartNumbersStatsAsync();
 
             return Ok(stats);
         }

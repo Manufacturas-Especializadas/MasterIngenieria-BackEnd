@@ -16,7 +16,7 @@ namespace Application.Services
             _repository = repository;
         }
 
-        public async Task<DashboardStatsDto> GetPartNumbersStatsAsync()
+        public async Task<DashboardStatsDto> GetParentPartNumbersStatsAsync()
         {
             var query = _repository.GetQueryable();
 
