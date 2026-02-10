@@ -10,7 +10,7 @@ namespace Application.Dtos
     {
         public string Name { get; set; }
 
-        public int Partes { get; set; }
+        public int NPartes { get; set; }
 
         public double Efficiency { get; set; }
     }
