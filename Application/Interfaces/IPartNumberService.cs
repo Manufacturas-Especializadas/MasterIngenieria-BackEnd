@@ -12,5 +12,7 @@ namespace Application.Interfaces
         Task<DashboardStatsDto> GetParentPartNumbersStatsAsync();
 
         Task<DashboardStatsDto> GetChildPartNumbersStatsAsync();
+
+        Task<KpiStatsDto> GetKpiStatsAsync();
     }
 }

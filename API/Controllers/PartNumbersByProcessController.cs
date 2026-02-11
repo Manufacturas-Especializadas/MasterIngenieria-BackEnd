@@ -33,5 +33,14 @@ namespace API.Controllers
 
             return Ok(stats);
         }
+
+        [HttpGet]
+        [Route("Kpi-stats")]
+        public async Task<IActionResult> GetKpiStats()
+        {
+            var kpiStats = await _service.GetKpiStatsAsync();
+
+            return Ok(kpiStats);
+        }
     }
 }
