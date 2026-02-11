@@ -10,5 +10,9 @@ namespace Application.Interfaces
     public interface IPartNumberService
     {
         Task<DashboardStatsDto> GetParentPartNumbersStatsAsync();
+
+        Task<DashboardStatsDto> GetChildPartNumbersStatsAsync();
+
+        Task<KpiStatsDto> GetKpiStatsAsync();
     }
 }
