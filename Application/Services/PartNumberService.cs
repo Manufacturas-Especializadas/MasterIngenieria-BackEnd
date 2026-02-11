@@ -41,5 +41,31 @@ namespace Application.Services
                 StatsByProcess = statsByProcess
             };
         }
+
+        public async Task<DashboardStatsDto> GetChildPartNumbersStatsAsync()
+        {
+            var query = _repository.GetQueryable();
+
+            var statsByProcess = await query
+                            .GroupBy(x => x.Operation)
+                            .Select(g => new ProcessStatsDto
+                            {
+                                Name = g.Key ?? "Sin proceso",
+                                NPartes = g.Select(x => x.ChildPartNumber).Distinct().Count(),
+                                Efficiency = g.Average(x => (double?)x.PzsHr) ?? 0.0
+                            })
+                            .ToListAsync();
+
+            var totalPartNumber = await query
+                            .Select(x => x.ChildPartNumber)
+                            .Distinct()
+                            .CountAsync();
+
+            return new DashboardStatsDto
+            {
+                TotalPartNumber = totalPartNumber,
+                StatsByProcess = statsByProcess
+            };
+        }
     }
 }
