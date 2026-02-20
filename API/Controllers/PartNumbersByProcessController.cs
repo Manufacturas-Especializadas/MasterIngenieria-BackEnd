@@ -17,9 +17,17 @@ namespace API.Controllers
 
         [HttpGet]
         [Route("Dashboard-parentPartNumbers")]
-        public async Task<IActionResult> GetStats()
+        public async Task<IActionResult> GetStats(
+            [FromQuery] string? parentPartNumber,
+            [FromQuery] string? childPartNumber,
+            [FromQuery] string? process
+            )
         {
-            var stats = await _service.GetParentPartNumbersStatsAsync();
+            var stats = await _service.GetParentPartNumbersStatsAsync(
+                parentPartNumber, 
+                childPartNumber, 
+                process
+            );
 
             return Ok(stats);
         }
@@ -27,9 +35,17 @@ namespace API.Controllers
 
         [HttpGet]
         [Route("Dashboard-childPartNumbers")]
-        public async Task<IActionResult> GetChildPartNumbersStats()
+        public async Task<IActionResult> GetChildPartNumbersStats(
+            [FromQuery] string? parentPartNumber,
+            [FromQuery] string? childPartNumber,
+            [FromQuery] string? process
+            )
         {
-            var stats = await _service.GetChildPartNumbersStatsAsync();
+            var stats = await _service.GetChildPartNumbersStatsAsync(
+                parentPartNumber,
+                childPartNumber,
+                process
+            );
 
             return Ok(stats);
         }
