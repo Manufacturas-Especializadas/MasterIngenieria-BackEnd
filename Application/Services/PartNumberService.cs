@@ -50,9 +50,15 @@ namespace Application.Services
             return query;
         }
 
-        public async Task<DashboardStatsDto> GetParentPartNumbersStatsAsync()
+        public async Task<DashboardStatsDto> GetParentPartNumbersStatsAsync(
+                string? parentPartNumber,
+                string? childPartNumber,
+                string? process
+            )
         {
             var query = _repository.GetQueryable();
+
+            query = ApplyFilters(query, parentPartNumber, childPartNumber, process);
 
             var statsByProcess = await query
                     .GroupBy(x => x.Operation)
@@ -76,9 +82,15 @@ namespace Application.Services
             };
         }
 
-        public async Task<DashboardStatsDto> GetChildPartNumbersStatsAsync()
+        public async Task<DashboardStatsDto> GetChildPartNumbersStatsAsync(
+                string? parentPartNumber,
+                string? childPartNumber,
+                string? process
+            )
         {
             var query = _repository.GetQueryable();
+
+            query = ApplyFilters(query, parentPartNumber, childPartNumber, process);
 
             var statsByProcess = await query
                             .GroupBy(x => x.Operation)

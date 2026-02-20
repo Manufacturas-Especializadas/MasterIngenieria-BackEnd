@@ -9,9 +9,17 @@ namespace Application.Interfaces
 {
     public interface IPartNumberService
     {
-        Task<DashboardStatsDto> GetParentPartNumbersStatsAsync();
+        Task<DashboardStatsDto> GetParentPartNumbersStatsAsync(
+            string? parentPartNumber,
+            string? childPartNumber,
+            string? process
+        );
 
-        Task<DashboardStatsDto> GetChildPartNumbersStatsAsync();
+        Task<DashboardStatsDto> GetChildPartNumbersStatsAsync(
+            string? parentPartNumber,
+            string? childPartNumber,
+            string? process
+        );
 
         Task<KpiStatsDto> GetKpiStatsAsync();
     }
