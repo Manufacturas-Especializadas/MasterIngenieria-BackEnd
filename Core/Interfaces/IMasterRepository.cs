@@ -10,5 +10,7 @@ namespace Core.Interfaces
     public interface IMasterRepository
     {
         Task<IEnumerable<Master>> GetTopCycleTimesByLineAsync(int line, int top = 5);
+
+        Task<IEnumerable<int>> GetUniqueLinesAsync();
     }
 }

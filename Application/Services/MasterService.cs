@@ -29,5 +29,10 @@ namespace Application.Services
                 Operation = m.Operation ?? ""
             });
         }
+
+        public async Task<IEnumerable<int>> GetLines()
+        {
+            return await _repository.GetUniqueLinesAsync();
+        }
     }
 }

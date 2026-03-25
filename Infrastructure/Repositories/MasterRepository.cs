@@ -28,5 +28,16 @@ namespace Infrastructure.Repositories
                 .Take(top)
                 .ToListAsync();
         }
+
+        public async Task<IEnumerable<int>> GetUniqueLinesAsync()
+        {
+            return await _context.Masters
+                    .Where(m => m.Line != null)
+                    .Select(m => m.Line)
+                    .Distinct()
+                    .OrderBy(l => l)
+                    .Select(l => l.Value)
+                    .ToListAsync();
+        }
     }
 }

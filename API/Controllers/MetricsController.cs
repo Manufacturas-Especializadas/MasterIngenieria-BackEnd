@@ -23,5 +23,14 @@ namespace API.Controllers
 
             return Ok(result);
         }
+
+        [HttpGet]
+        [Route("lines")]
+        public async Task<ActionResult<IEnumerable<int>>> GetLines()
+        {
+            var lines = await _masterService.GetLines();
+
+            return Ok(lines);
+        }
     }
 }
