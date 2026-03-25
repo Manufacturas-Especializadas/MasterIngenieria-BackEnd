@@ -16,9 +16,49 @@ namespace Application.Services
             _repository = repository;
         }
 
-        public async Task<DashboardStatsDto> GetParentPartNumbersStatsAsync()
+        private IQueryable<Master> ApplyFilters(
+                IQueryable<Master> query,
+                string? parentPartNumber,
+                string? childPartNumber,
+                string? process
+            )
+        {
+            if (!string.IsNullOrWhiteSpace(parentPartNumber))
+            {
+                query = query.Where(
+                    x => x.ParentPartNumber != null &&
+                    x.ParentPartNumber.Contains(parentPartNumber)
+                );
+            }
+
+            if (!string.IsNullOrWhiteSpace(childPartNumber))
+            {
+                query = query.Where(x =>
+                    x.ChildPartNumber != null &&
+                    x.ChildPartNumber.Contains(childPartNumber)
+                );
+            }
+
+            if (!string.IsNullOrWhiteSpace(process))
+            {
+                query = query.Where(x =>
+                    x.Operation != null &&
+                    x.Operation == process
+                );
+            }
+
+            return query;
+        }
+
+        public async Task<DashboardStatsDto> GetParentPartNumbersStatsAsync(
+                string? parentPartNumber,
+                string? childPartNumber,
+                string? process
+            )
         {
             var query = _repository.GetQueryable();
+
+            query = ApplyFilters(query, parentPartNumber, childPartNumber, process);
 
             var statsByProcess = await query
                     .GroupBy(x => x.Operation)
@@ -42,9 +82,15 @@ namespace Application.Services
             };
         }
 
-        public async Task<DashboardStatsDto> GetChildPartNumbersStatsAsync()
+        public async Task<DashboardStatsDto> GetChildPartNumbersStatsAsync(
+                string? parentPartNumber,
+                string? childPartNumber,
+                string? process
+            )
         {
             var query = _repository.GetQueryable();
+
+            query = ApplyFilters(query, parentPartNumber, childPartNumber, process);
 
             var statsByProcess = await query
                             .GroupBy(x => x.Operation)
