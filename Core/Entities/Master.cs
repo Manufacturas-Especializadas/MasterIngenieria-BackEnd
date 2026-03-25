@@ -52,6 +52,6 @@ namespace Core.Entities
 
         public int PzsHr { get; set; }
 
-        public string? Verificaiton { get; set; }
+        public string? Verification { get; set; }
     }
 }
