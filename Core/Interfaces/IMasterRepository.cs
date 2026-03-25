@@ -9,10 +9,6 @@ namespace Core.Interfaces
 {
     public interface IMasterRepository
     {
-        Task<Master> GetByChildPartNumberAsync(string childPartNumber);
-
-        Task AddAsync(Master entity);
-
-        Task SaveChangesAsync();
+        Task<IEnumerable<Master>> GetTopCycleTimesByLineAsync(int line, int top = 5);
     }
 }
