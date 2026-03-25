@@ -14,6 +14,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddScoped<IPartNumberService, PartNumberService>();
 builder.Services.AddScoped<IMasterRepository, MasterRepository>();
+builder.Services.AddScoped<ISyncService, SyncService>();
 
 builder.Services.AddScoped<MasterService>();
 
