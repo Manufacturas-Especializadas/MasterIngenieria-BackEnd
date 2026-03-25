@@ -46,6 +46,10 @@ namespace Core.Entities
 
         public double? OperSetup { get; set; }
 
+        public decimal? TCiclo { get; set; }
+
+        public decimal? Oper { get; set; }
+
         public int PzsHr { get; set; }
 
         public string? Verificaiton { get; set; }

@@ -20,7 +20,7 @@ namespace Infrastructure.Data
 
             modelBuilder.Entity<Master>(entity =>
             {
-                entity.ToTable("Masters");
+                entity.ToTable("MasterIndustrial");
                 entity.HasKey(e => e.Id);
 
                 entity.Property(e => e.ParentPartNumber).HasColumnName("parentPartNumber");
@@ -32,9 +32,17 @@ namespace Infrastructure.Data
                 entity.Property(e => e.Operation).HasColumnName("operation");
                 entity.Property(e => e.Sequence).HasColumnName("sequence");
                 entity.Property(e => e.PzsHr).HasColumnName("pzsHr");
+                entity.Property(e => e.Oper)
+                    .HasColumnType("decimal(10, 3)")
+                    .HasColumnName("oper");
+
                 entity.Property(e => e.OperSetup)
-                      .HasColumnName("operSetup")
-                      .HasColumnType("decimal(10,3)");
+                    .HasColumnType("decimal(10, 3)")
+                    .HasColumnName("operSetup");
+
+                entity.Property(e => e.TCiclo)
+                    .HasColumnType("decimal(10, 3)")
+                    .HasColumnName("tCiclo");
             });
         }
     }
