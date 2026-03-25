@@ -28,11 +28,11 @@ namespace Core.Entities
 
         public string? Client {  get; set; }
 
-        public int Line { get; set; }
+        public int? Line { get; set; }
 
         public string? PartOfPurchase { get; set; }
 
-        public int QuantityXQuantity { get; set; }
+        public int? QuantityXQuantity { get; set; }
 
         public string? Operation {  get; set; }
 
@@ -50,7 +50,7 @@ namespace Core.Entities
 
         public decimal? Oper { get; set; }
 
-        public int PzsHr { get; set; }
+        public int? PzsHr { get; set; }
 
         public string? Verification { get; set; }
     }
