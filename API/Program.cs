@@ -2,6 +2,7 @@ using Application.Interfaces;
 using Application.Services;
 using Core.Interfaces;
 using Infrastructure.Data;
+using Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,6 +13,9 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddScoped<IPartNumberService, PartNumberService>();
+builder.Services.AddScoped<IMasterRepository, MasterRepository>();
+
+builder.Services.AddScoped<MasterService>();
 
 var connection = builder.Configuration.GetConnectionString("Connection");
 builder.Services.AddDbContext<ApplicationDbContext>(option =>
