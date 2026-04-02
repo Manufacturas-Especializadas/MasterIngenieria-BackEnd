@@ -1,5 +1,7 @@
 ﻿using Core.Entities;
 using Core.Interfaces;
+using Core.Models;
+using EFCore.BulkExtensions;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -38,6 +40,37 @@ namespace Infrastructure.Repositories
                     .OrderBy(l => l)
                     .Select(l => l.Value)
                     .ToListAsync();
+        }
+
+        public async Task<SyncResult> UpsertBulkAsync(List<Master> masters)
+        {
+            using (var transaction = await _context.Database.BeginTransactionAsync())
+            {
+                try
+                {
+                    await _context.TruncateAsync<Master>();
+
+                    var bulkConfig = new BulkConfig
+                    {
+                        BatchSize = 5000,
+                        PropertiesToExclude = new List<string> { "Id" },
+                        SetOutputIdentity = false,
+                        PreserveInsertOrder = false,
+                        CalculateStats = false
+                    };
+
+                    await _context.BulkInsertAsync(masters, bulkConfig);
+
+                    await transaction.CommitAsync();
+                    return new SyncResult { Success = true, TotalRecords = masters.Count };
+                }
+                catch (Exception ex)
+                {
+                    await transaction.RollbackAsync();
+                    var inner = ex.InnerException != null ? $" | Inner: {ex.InnerException.Message}" : "";
+                    throw new Exception($"Error en BulkInsert: {ex.Message}{inner}", ex);
+                }
+            }
         }
     }
 }
