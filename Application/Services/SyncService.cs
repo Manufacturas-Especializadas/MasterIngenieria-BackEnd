@@ -14,7 +14,7 @@ namespace Application.Services
     public class SyncService : ISyncService
     {
         private readonly IMasterRepository _repository;
-        private readonly string _nasPath = @"\\192.168.25.54\usuarios2\A&T\Master de Ingeniería.xlsx";
+        private readonly string _nasPath = @"\\192.168.25.54\Ing Industrial\Master de Ingeniería.xlsx";
 
         public SyncService(IMasterRepository repository) 
         {
