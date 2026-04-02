@@ -1,4 +1,5 @@
 ﻿using Core.Entities;
+using Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,10 +10,10 @@ namespace Core.Interfaces
 {
     public interface IMasterRepository
     {
-        Task<Master> GetByChildPartNumberAsync(string childPartNumber);
+        Task<IEnumerable<Master>> GetTopCycleTimesByLineAsync(int line, int top = 5);
 
-        Task AddAsync(Master entity);
+        Task<IEnumerable<int>> GetUniqueLinesAsync();
 
-        Task SaveChangesAsync();
+        Task<SyncResult> UpsertBulkAsync(List<Master> masters);
     }
 }
