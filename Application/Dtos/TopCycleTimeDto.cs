@@ -10,6 +10,8 @@ namespace Application.Dtos
     {
         public string PartNumber { get; set; }
 
+        public string Client {  get; set; }
+
         public string Description { get; set; }
 
         public decimal TCiclo { get; set; }

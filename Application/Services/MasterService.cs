@@ -24,6 +24,7 @@ namespace Application.Services
             return data.Select(m => new TopCycleTimeDto
             {
                 PartNumber = m.ChildPartNumber ?? "N/A",
+                Client = m.Client ?? "Sin cliente",
                 Description = m.Description ?? "Sin descripción",
                 TCiclo = m.TCiclo ?? 0,
                 Operation = m.Operation ?? ""
