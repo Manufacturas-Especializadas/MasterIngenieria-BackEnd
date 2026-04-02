@@ -1,4 +1,5 @@
 ﻿using Core.Entities;
+using Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,5 +13,7 @@ namespace Core.Interfaces
         Task<IEnumerable<Master>> GetTopCycleTimesByLineAsync(int line, int top = 5);
 
         Task<IEnumerable<int>> GetUniqueLinesAsync();
+
+        Task<SyncResult> UpsertBulkAsync(List<Master> masters);
     }
 }
