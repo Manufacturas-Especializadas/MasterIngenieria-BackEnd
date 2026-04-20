@@ -23,12 +23,24 @@ namespace Infrastructure.Repositories
 
         public async Task<IEnumerable<Master>> GetTopCycleTimesByLineAsync(int line, int top = 5)
         {
-            return await _context.Masters
-                .Where(m => m.Line == line && m.TCiclo.HasValue)
-                .OrderByDescending(m => m.TCiclo)
-                .ThenBy(m => m.ParentPartNumber)
-                .Take(top)
-                .ToListAsync();
+            var topIds = await _context.Masters
+                    .Where(m => m.Line == line && m.TCiclo.HasValue)
+                    .GroupBy(m => m.ParentPartNumber)
+                    .Select(g => new
+                    {
+                        Id = g.OrderByDescending(x => x.TCiclo).Select(x => x.Id).FirstOrDefault(),
+                        MaxCiclo = g.Max(x => x.TCiclo)
+                    })
+                    .OrderByDescending(x => x.MaxCiclo)
+                    .Take(top)
+                    .Select(x => x.Id)
+                    .ToListAsync();
+
+                    var results = await _context.Masters
+                        .Where(m => topIds.Contains(m.Id))
+                        .ToListAsync();
+
+            return results.OrderByDescending(m => m.TCiclo);
         }
 
         public async Task<IEnumerable<int>> GetUniqueLinesAsync()
