@@ -35,5 +35,19 @@ namespace Application.Services
         {
             return await _repository.GetUniqueLinesAsync();
         }
+
+        public async Task<IEnumerable<MasterImprovementDto>> GetRecentImprovements(int line)
+        {
+            var data = await _repository.GetRecentImprovementsByLineAsync(line, 10);
+
+            return data.Select(i => new MasterImprovementDto
+            {
+                ParentPartNumber = i.ParentPartNumber,
+                OldCycleTime = i.OldCycleTime,
+                NewCycleTime = i.NewCycleTime,
+                Process = i.Process ?? "N/A",
+                ImprovementDate = i.ImprovementDate,
+            });
+        }
     }
 }
