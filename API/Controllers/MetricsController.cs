@@ -25,6 +25,20 @@ namespace API.Controllers
         }
 
         [HttpGet]
+        [Route("improvements/{line}")]
+        public async Task<ActionResult<IEnumerable<MasterImprovementDto>>> GetImprovements(int line)
+        {
+            var improvements = await _masterService.GetRecentImprovements(line);
+
+            if(improvements == null || !improvements.Any())
+            {
+                return NoContent();
+            }
+
+            return Ok(improvements);
+        }
+
+        [HttpGet]
         [Route("lines")]
         public async Task<ActionResult<IEnumerable<int>>> GetLines()
         {
