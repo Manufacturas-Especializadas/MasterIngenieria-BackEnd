@@ -1,4 +1,5 @@
-﻿using Core.Entities;
+﻿using Application.Dtos;
+using Core.Entities;
 using Core.Interfaces;
 using Core.Models;
 using EFCore.BulkExtensions;
@@ -41,6 +42,15 @@ namespace Infrastructure.Repositories
                         .ToListAsync();
 
             return results.OrderByDescending(m => m.TCiclo);
+        }
+
+        public async Task<IEnumerable<MasterImprovement>> GetRecentImprovementsByLineAsync(int line, int top)
+        {
+            return await _context.MasterImprovements
+                .Where(x => x.Line == line)
+                .OrderByDescending(x => x.ImprovementDate)
+                .Take(top)
+                .ToListAsync();
         }
 
         public async Task<IEnumerable<int>> GetUniqueLinesAsync()

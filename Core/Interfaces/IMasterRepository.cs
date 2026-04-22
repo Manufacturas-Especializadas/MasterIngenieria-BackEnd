@@ -12,6 +12,8 @@ namespace Core.Interfaces
     {
         Task<IEnumerable<Master>> GetTopCycleTimesByLineAsync(int line, int top = 5);
 
+        Task<IEnumerable<MasterImprovement>> GetRecentImprovementsByLineAsync(int line, int top);
+
         Task<IEnumerable<int>> GetUniqueLinesAsync();
 
         Task<SyncResult> UpsertBulkAsync(List<Master> masters);
